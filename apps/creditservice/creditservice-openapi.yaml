@@ -5,6 +5,17 @@ info:
     description: A brand new API with no content.  Go nuts!
 paths:
     /credit:
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Client'
+                    description: List all transactions
+            operationId: getall
         post:
             requestBody:
                 description: ''
@@ -24,6 +35,7 @@ paths:
                 '200':
                     description: Credit received
             description: Insert a credit request in the credit store
+            operationId: writedb
 components:
     schemas:
         Client:
