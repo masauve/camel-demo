@@ -1,6 +1,8 @@
 # camel-demo
 Pré-requis
-l'Operator Camel-K doit être déployé dans le namespace ou cluster utilisé
+l'Operator Camel-K doit être déployé dans le namespace ou cluster utilisé.
+
+L'outil CLI Kamel doit être installé.
 
 Étape 1
 Création des bases de données:
