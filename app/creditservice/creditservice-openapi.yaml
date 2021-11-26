@@ -1,0 +1,47 @@
+openapi: 3.0.2
+info:
+    title: New API
+    version: 1.0.0
+    description: A brand new API with no content.  Go nuts!
+paths:
+    /credit:
+        post:
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Client'
+                        examples:
+                            client:
+                                value:
+                                    clientId: client1
+                                    type: credit
+                                    location: The car coffeeshop
+                                    amount: 4.25
+                required: true
+            responses:
+                '200':
+                    description: Credit received
+            description: Insert a credit request in the credit store
+components:
+    schemas:
+        Client:
+            title: Root Type for Client
+            description: 'Client description  '
+            type: object
+            properties:
+                clientId:
+                    type: string
+                type:
+                    type: string
+                location:
+                    type: string
+                amount:
+                    format: double
+                    type: number
+            example:
+                clientId: client1
+                type: credit
+                location: The car coffeeshop
+                amount: 4.25

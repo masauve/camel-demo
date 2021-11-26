@@ -1,28 +1,17 @@
 /*
 
-kamel run --dev --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql:0.21.2.redhat-00005 -t route.enabled=true creditservice.java
+kamel run --dev --profile=openshift --open-api=creditservice-openapi.yaml --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true creditservice.java
 */
 
 
-import org.apache.camel.builder.RouteBuilder;
-
-
-public class creditservice extends RouteBuilder {
+public class creditservice extends org.apache.camel.builder.RouteBuilder {
   @Override
   public void configure() throws Exception {
-
-        rest()
-            .consumes(MediaType.APPLICATION_JSON)
-            .produces(MediaType.APPLICATION_JSON)
-            .post("/credit")
-            .route()
-                .to("direct:writecredit")
-            .endRest();
-
-        from("direct:writecredit")
+        from("direct:rest1")
+            
             .log("BODY: ${body}")
-            .setBody(simple("insert into transaction (CLIENT_ID, TYPE, LOCATION, AMOUNT) values ('${body[clientId]}', '${body[type]}','${body[location]}','${body[amount]}' );"))
-            .to("jdbc:camel")
-            .setBody(simple("done!"));
+           // .setBody().simple("insert into transaction (CLIENT_ID, TYPE, LOCATION, AMOUNT) values ('#${body[clientId]}', '${body.type}','${body.location}','${body.amount}' );")
+            .to("stub:done");
         
  }
+}
