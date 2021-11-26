@@ -65,7 +65,7 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
       }
       String newBody = newExchange.getIn().getBody(String.class);
       String oldBody = oldExchange.getIn().getBody(String.class);
-      newBody = oldBody.concat(" + ").concat(newBody);
+      newBody = oldBody.concat("\n").concat(newBody);
       newExchange.getIn().setBody(newBody);
       return newExchange;
   }
