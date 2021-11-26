@@ -1,0 +1,45 @@
+openapi: 3.0.2
+info:
+    title: New API
+    version: 1.0.0
+    description: A brand new API with no content.  Go nuts!
+paths:
+    /transaction:
+        get:
+            responses:
+                '200': {}
+            operationId: readtransaction
+            summary: Read and Write user transaction
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/client'
+                required: true
+            responses:
+                '200':
+                    content:
+                        application/json: {}
+            operationId: writetransaction
+components:
+    schemas:
+        client:
+            title: Root Type for client
+            description: client transaction
+            type: object
+            properties:
+                clientId:
+                    type: string
+                type:
+                    type: string
+                location:
+                    type: string
+                amount:
+                    format: double
+                    type: number
+            example:
+                clientId: client3
+                type: debit
+                location: The car coffeeshop
+                amount: 4.25
