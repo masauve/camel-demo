@@ -1,12 +1,13 @@
 /*
 
-kamel run --dev --profile=openshift --open-api=creditservice-openapi.yaml --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true creditservice.java
+kamel run --dev --profile=openshift --open-api=debitservice-openapi.yaml --config secret:my-debit-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true debitservice.java
 
-kamel run --profile=openshift --open-api=creditservice-openapi.yaml --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true creditservice.java
+kamel run --profile=openshift --open-api=debitservice-openapi.yaml --config secret:my-debit-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true debitservice.java
+
 */
 
 
-public class creditservice extends org.apache.camel.builder.RouteBuilder {
+public class debitservice extends org.apache.camel.builder.RouteBuilder {
   @Override
   public void configure() throws Exception {
         from("direct:writedb")

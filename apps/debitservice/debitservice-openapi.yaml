@@ -1,0 +1,59 @@
+openapi: 3.0.2
+info:
+    title: New API
+    version: 1.0.0
+    description: A brand new API with no content.  Go nuts!
+paths:
+    /debit:
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Client'
+                    description: List all transactions
+            operationId: getall
+        post:
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Client'
+                        examples:
+                            client:
+                                value:
+                                    clientId: client1
+                                    type: debit
+                                    location: The car coffeeshop
+                                    amount: 4.25
+                required: true
+            responses:
+                '200':
+                    description: Credit received
+            description: Insert a debit request in the debit store
+            operationId: writedb
+components:
+    schemas:
+        Client:
+            title: Root Type for Client
+            description: 'Client description  '
+            type: object
+            properties:
+                clientId:
+                    type: string
+                type:
+                    type: string
+                location:
+                    type: string
+                amount:
+                    format: double
+                    type: number
+            example:
+                clientId: client1
+                type: debit
+                location: The car coffeeshop
+                amount: 4.25
