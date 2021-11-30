@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: debitservice-pipeline
+spec:
+  resources:
+    - name: source-repo
+      type: git
+  tasks:
+    - name: run-integration
+      taskRef:
+        name: camel-k-run-integration
+      resources:
+        inputs:
+          - name: repository
+            resource: source-repo
+      params:
+        - name: traits
+          value:
+            - "--profile=openshift"
+            - "--open-api=apps/debitservice/debitservice-openapi.yaml"
+            - "--config"
+            - "secret:my-debit-datasource"
+            - "--build-property"
+            - "quarkus.datasource.camel.db-kind=postgresql"
+            - "-d"
+            - "mvn:io.quarkus:quarkus-jdbc-postgresql"
+            - "--trait"
+            - "knative.enabled=false"
+            - "--trait" 
+            - "route.enabled=true"
+            - "--trait" 
+            - "istio.enabled=true"
+        - name: file
+          value: "apps/debitservice/debitservice.java"

@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: transactionservice-pipeline
+spec:
+  resources:
+    - name: source-repo
+      type: git
+  tasks:
+    - name: run-integration
+      taskRef:
+        name: camel-k-run-integration
+      resources:
+        inputs:
+          - name: repository
+            resource: source-repo
+      params:
+        - name: traits
+          value:
+            - "--profile=openshift"
+            - "--open-api=apps/transactionservice/transactionservice-openapi.yaml"
+            - "--trait"
+            - "knative.enabled=false"
+            - "--trait" 
+            - "route.enabled=true"
+            - "--trait" 
+            - "istio.enabled=true"
+        - name: file
+          value: "apps/transactionservice/transactionservice.java"

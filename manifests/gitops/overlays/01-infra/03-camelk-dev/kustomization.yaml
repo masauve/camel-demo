@@ -1,10 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: camelk-dev
-
 bases:
-  - ../../../base/01-common-environment-config/01-quotas-and-limits/02-medium
+  - ../../../base/01-common-environment-config/01-ossm-control-plane
 
 resources:
   - namespace.yaml
+  - smm.yaml
