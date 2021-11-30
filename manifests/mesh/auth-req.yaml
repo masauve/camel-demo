@@ -16,7 +16,6 @@ apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
   name: camelk-auth
-  namespace: msauve-codeready
 spec:
   selector:
     matchLabels:
