@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - gateway.yaml
   - vs.yaml
-  - auth-req.yaml
-  - auth-policy.yaml
+  - auth-debit-policy.yaml
+  - auth-req-debit.yaml

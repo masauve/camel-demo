@@ -2,5 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
+  - 01-database/creditdb
+  - 01-database/debitdb
   - 02-tekton
   - 03-ossm

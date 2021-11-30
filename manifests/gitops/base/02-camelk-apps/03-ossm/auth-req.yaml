@@ -1,21 +1,7 @@
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
-  name: camelk-auth
-  namespace: istio-system
-spec:
-  selector:
-    matchLabels:
-      app: istio-ingressgateway
-  jwtRules:
-  - issuer: https://keycloak-sso.apps.rhcasalab.sandbox1385.opentlc.com/auth/realms/user-applications
-    jwksUri: https://keycloak-sso.apps.rhcasalab.sandbox1385.opentlc.com/auth/realms/user-applications/protocol/openid-connect/certs
-    forwardOriginalToken: true
----
-apiVersion: security.istio.io/v1beta1
-kind: RequestAuthentication
-metadata:
-  name: camelk-auth
+  name: debit-dev-auth
 spec:
   selector:
     matchLabels:
