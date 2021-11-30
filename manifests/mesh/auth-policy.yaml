@@ -1,0 +1,36 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system
+spec:
+  action: ALLOW
+  selector:
+    matchLabels:
+      app: camelk-gateway
+  rules:
+  - from:
+    - source:
+       requestPrincipals: ["*"]
+    when:
+    - key: request.auth.claims[realm_access][roles]
+      values: ["app-user"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: debit-camelk
+  namespace: msauve-codeready
+spec:
+  action: ALLOW
+  selector:
+    matchLabels:
+      camel.apache.org/integration: debitservice
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/debit"]
+    when:
+    - key: request.auth.claims[realm_access][roles]
+      values: ["debit-user"]
