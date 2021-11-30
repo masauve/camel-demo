@@ -1,6 +1,6 @@
 /*
 
-kamel run --dev --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true transactionservice.java
+kamel run --dev --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true  -t istio.enabled=true transactionservice.java
 
 kamel run --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true -t istio.enabled=true transactionservice.java
 */
@@ -39,7 +39,11 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
         .convertBodyTo(String.class);
 
         from("direct:readdebit")
-        .to("http:debitservice:80/debit?httpMethod=GET")
+        .doTry()
+           .to("http:debitservice:80/debit?httpMethod=GET")
+        .doCatch(Exception.class)
+           .setBody().simple("{\"error\": \"Debit Service 403 forbidden\"}")
+        .end()
         .convertBodyTo(String.class);
 
 
