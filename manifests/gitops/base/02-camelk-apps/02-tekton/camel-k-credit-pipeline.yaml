@@ -31,5 +31,7 @@ spec:
             - "route.enabled=true"
             - "--trait" 
             - "istio.enabled=true"
+            - "--trait" 
+            - "jolokia.enabled=true"
         - name: file
           value: "apps/creditservice/creditservice.java"
