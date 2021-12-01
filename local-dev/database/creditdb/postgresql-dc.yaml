@@ -1,0 +1,113 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: postgresql-demo
+    app.kubernetes.io/component: postgresql-demo-dc
+    app.kubernetes.io/instance: database
+    app.kubernetes.io/part-of: credit-app
+    app.openshift.io/runtime: postgresql
+    deploymentconfig: postgresql-demo
+  name: postgresql-demo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    name: postgresql-demo
+    app: postgresql-demo
+    deploymentconfig: postgresql-demo
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    type: Recreate
+  template:
+    metadata:
+      name: postgresql-demo
+      labels:
+        app: postgresql-demo
+        name: postgresql-demo
+        deploymentconfig: postgresql-demo
+    spec:
+      containers:
+      - env:
+        - name: POSTGRESQL_USER
+          value: demodb
+        - name: POSTGRESQL_PASSWORD
+          value: Demo1234
+        - name: POSTGRESQL_DATABASE
+          value: cs_credit
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          postStart:
+            exec:
+             command:
+                  - "sh"
+                  - "-c"  
+                  - > 
+                    sleep 10 && PGPASSWORD=$POSTGRESQL_PASSWORD psql -d $POSTGRESQL_DATABASE -U $POSTGRESQL_USER <<EOF 
+                      \x
+                      CREATE TABLE if not exists transaction ( ID SERIAL PRIMARY KEY, CLIENT_ID VARCHAR(20) NOT NULL, TYPE VARCHAR(10)      NOT NULL, LOCATION VARCHAR(50)  NOT NULL, AMOUNT FLOAT8 NOT NULL, CREATE_DATE DATE );
+                    EOF 
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 5432
+          timeoutSeconds: 1
+        name: postgresql
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
+              'SELECT 1'
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: '1'
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        securityContext:
+          capabilities: {}
+          privileged: false
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/pgsql/data
+          name: postgresql-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: postgresql-data
+        persistentVolumeClaim:
+          claimName: postgresql-demo-data
+  test: false
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - postgresql
+      from:
+        kind: ImageStreamTag
+        name: postgresql:12
+        namespace: openshift
+    type: ImageChange
+  - type: ConfigChange
