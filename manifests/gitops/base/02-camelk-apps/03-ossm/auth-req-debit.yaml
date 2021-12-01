@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: debit-auth
+spec:
+  selector:
+    matchLabels:
+      camel.apache.org/integration: debitservice
+  jwtRules:
+  - issuer: https://keycloak-sso.apps.rhcasalab.sandbox1385.opentlc.com/auth/realms/user-applications
+    jwksUri: https://keycloak-sso.apps.rhcasalab.sandbox1385.opentlc.com/auth/realms/user-applications/protocol/openid-connect/certs
+    forwardOriginalToken: true

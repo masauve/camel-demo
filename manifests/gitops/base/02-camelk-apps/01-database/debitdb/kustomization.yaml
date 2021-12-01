@@ -4,3 +4,4 @@ resources:
 - postgresql-data-pvc.yaml
 - postgresql-dc.yaml
 - postgresql-svc.yaml
+- db-secret.yaml

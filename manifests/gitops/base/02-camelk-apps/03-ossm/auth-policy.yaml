@@ -1,0 +1,17 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: debit-camelk
+spec:
+  action: ALLOW
+  selector:
+    matchLabels:
+      camel.apache.org/integration: debitservice
+  rules:
+  - to:
+    - operation:
+        methods: ["GET","POST"]
+        paths: ["/debit"]
+    when:
+    - key: request.auth.claims[realm_access][roles]
+      values: ["debit-user"]

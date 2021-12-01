@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: camel-k-run-integration
+spec:
+  inputs:
+    resources:
+      - name: repository
+        type: git
+    params:
+      - name: traits
+        type: array
+      - name: file
+        type: string
+        description: The integration file to run
+  steps:
+    - name: run-integration
+      image: apache/camel-k:1.7.0
+      workingDir: /workspace/repository
+      command: [kamel]
+      args: ["run", "$(params.traits[*])", "$(params.file)"]
