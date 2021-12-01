@@ -8,7 +8,7 @@ spec:
     server: https://kubernetes.default.svc
   project: camelk
   source:
-    path: manifests/gitops/overlays/03-camelk-apps
+    path: manifests/gitops/overlays/03-camelk-apps/01-dev
     repoURL: https://github.com/masauve/camelk-demo.git
     targetRevision: main
   syncPolicy:
