@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: debit-app
+    app.kubernetes.io/component: postgresql-debit-demo-data-pvc
+    app.kubernetes.io/instance: database
+    app.kubernetes.io/part-of: debit-app
+  finalizers:
+  - kubernetes.io/pvc-protection
+  name: postgresql-debit-demo-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

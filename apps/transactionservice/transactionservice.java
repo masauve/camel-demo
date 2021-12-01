@@ -1,8 +1,8 @@
 /*
 
-kamel run --dev --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true transactionservice.java
+kamel run --dev --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true  -t istio.enabled=true transactionservice.java
 
-kamel run --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true transactionservice.java
+kamel run --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true -t istio.enabled=true transactionservice.java
 */
 import org.apache.camel.Exchange;
 import org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy;
@@ -29,6 +29,7 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
         from("direct:readtransaction")
         .removeHeader(Exchange.HTTP_URI)
         .removeHeader(Exchange.HTTP_PATH)
+        .to("log:DEBUG?showBody=true&showHeaders=true")
         .multicast(new MyAggregationStrategy())
         .parallelProcessing().timeout(1000).to("direct:readcredit", "direct:readdebit")
         .end();
@@ -38,7 +39,11 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
         .convertBodyTo(String.class);
 
         from("direct:readdebit")
-        .to("http:debitservice:80/debit?httpMethod=GET")
+        .doTry()
+           .to("http:debitservice:80/debit?httpMethod=GET")
+        .doCatch(Exception.class)
+           .setBody().simple("{\"error\": \"Debit Service 403 forbidden\"}")
+        .end()
         .convertBodyTo(String.class);
 
 
@@ -65,7 +70,9 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
       }
       String newBody = newExchange.getIn().getBody(String.class);
       String oldBody = oldExchange.getIn().getBody(String.class);
-      newBody = oldBody.concat(" + ").concat(newBody);
+      if(oldBody==null)oldBody="";
+      if(newBody==null)newBody="";
+      newBody = oldBody.concat("\n").concat(newBody);
       newExchange.getIn().setBody(newBody);
       return newExchange;
   }

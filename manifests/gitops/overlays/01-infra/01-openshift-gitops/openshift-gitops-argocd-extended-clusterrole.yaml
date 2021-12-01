@@ -8,6 +8,12 @@ rules:
   - apiGroups:
     - ""
     resources:
+<<<<<<< HEAD
       - '*'
+=======
+      - resourcequotas
+      - limitranges
+      - serviceaccounts
+>>>>>>> e354a2e5076fd48b4c8031c48d79fd7d54f43db4
     verbs:
       - '*'

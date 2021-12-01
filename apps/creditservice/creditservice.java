@@ -2,7 +2,7 @@
 
 kamel run --dev --profile=openshift --open-api=creditservice-openapi.yaml --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true creditservice.java
 
-kamel run --profile=openshift --open-api=creditservice-openapi.yaml --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true creditservice.java
+kamel run --profile=openshift --open-api=creditservice-openapi.yaml --config secret:my-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t istio.enabled=true -t knative.enabled=false creditservice.java
 */
 
 
