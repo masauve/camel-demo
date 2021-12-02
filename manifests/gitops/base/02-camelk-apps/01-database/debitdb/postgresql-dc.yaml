@@ -50,6 +50,13 @@ spec:
                       \x
                       CREATE TABLE if not exists transaction ( ID SERIAL PRIMARY KEY, CLIENT_ID VARCHAR(20) NOT NULL, TYPE VARCHAR(10)      NOT NULL, LOCATION VARCHAR(50)  NOT NULL, AMOUNT FLOAT8 NOT NULL, CREATE_DATE DATE);
                     EOF 
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 5432
+          timeoutSeconds: 1
         name: postgresql
         ports:
         - containerPort: 5432
