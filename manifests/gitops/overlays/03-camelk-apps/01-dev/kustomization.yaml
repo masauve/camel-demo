@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: camelk-dev
 
 bases:
-  - ../../../base/02-camelk-apps
+  - ../../../base/03-camelk-apps
