@@ -13,6 +13,9 @@ spec:
     path: manifests/gitops/overlays/03-camelk-apps/01-dev
     repoURL: https://github.com/masauve/camelk-demo.git
     targetRevision: main
+  syncOptions:
+  - Validate=false
+  - SkipDryRunOnMissingResource=true
   syncPolicy:
     automated:
       prune: false

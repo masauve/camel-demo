@@ -9,6 +9,8 @@ metadata:
     app.openshift.io/runtime: postgresql
     deploymentconfig: postgresql-demo
   name: postgresql-demo
+  annotations:
+    argocd.argoproj.io/sync-options: Validate=false
 spec:
   replicas: 1
   revisionHistoryLimit: 3

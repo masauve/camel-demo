@@ -9,6 +9,8 @@ metadata:
     app.openshift.io/runtime: postgresql
     deploymentconfig: postgresql-debit-demo
   name: postgresql-debit-demo
+  annotations:
+    argocd.argoproj.io/sync-options: Validate=false
 spec:
   replicas: 1
   revisionHistoryLimit: 3
