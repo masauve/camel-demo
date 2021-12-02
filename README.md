@@ -18,17 +18,19 @@ This demo, sets up the following tools and process:
 
 ![process](images/processflow.png)
 
+* **Step A** Apicurio, a collaborative OpenAPI design and validation interface, is used to build the OpenAPI specifications that will be used by Camel-K to automatically generate the API 
+
 * **Step 1** A devfile to automatically creates the developer tooling for Camel-K including test/debug utilities and all required CLI to interact with OpenShift
 
-* **Step A** CodeReady Workspaces(CRW) interprets the devfile and provision the secure and persistent environment for the developer
+* **Step B** CodeReady Workspaces(CRW) interprets the devfile and provision the secure and persistent environment for the developer
 
 * **Step 2** The developer uses CRW to create and deploy the OpenShift Service Mesh resources required by the application
 
-* **Step B** OpenShift Service Mesh (OSSM) based on Istio, automatically detects the desired configuration and applies it to the developer's sandbox.
+* **Step C** OpenShift Service Mesh (OSSM) based on Istio, automatically detects the desired configuration and applies it to the developer's sandbox.
 
 * **Step 3** The developer uses CRW to create the Camel-K services and deploy them to his/her sandbox environment.
 
-* **Step C** OSSM automatically detects that OIDC claims and authentication are required and RH-SSO generates or validates the auth token with different claims.
+* **Step D** OSSM automatically detects that OIDC claims and authentication are required and RH-SSO generates or validates the auth token with different claims.
 
 This concludes the demo for the developer sandbox. The developer sandbox is considered unmanaged, as it requires no gating, approval. The developer can change and deploy configuration and application to align to business needs.
 
@@ -36,17 +38,17 @@ The next step are installing and configuring a managed, secure and controlled en
 
 * **Step 4** When a change is commited and the pull request is merged to the main branch in Git, it triggers a sequence of autonation to deploy the application in an integrated development environment,
 
-* **Step D** OpenShift GitOps, based on ArgoCD, is notified automatically of the change and apply the required configuration and application changes to the OpenShift cluster
+* **Step E** OpenShift GitOps, based on ArgoCD, is notified automatically of the change and apply the required configuration and application changes to the OpenShift cluster
 
 * **Step 5** The Istio Configuration is applied and the namespace is added to the Istio managed namespace
 
-* **Step B** OpenShift Service Mesh (OSSM) based on Istio, automatically detects the desired configuration and applies it to the developer's sandbox.
+* **Step C** OpenShift Service Mesh (OSSM) based on Istio, automatically detects the desired configuration and applies it to the developer's sandbox.
 
 * **Step 6** The required CI steps, tasks and pipelines are synced from GIT to the OpenShift Pipelines by OpenShift GitOps.
 
-* **Step E** OpenShift Pipelines, based on Tekton, executes the pipelines to build and deployed the microservices to the managed namespace
+* **Step F** OpenShift Pipelines, based on Tekton, executes the pipelines to build and deployed the microservices to the managed namespace
 
-* **Step F** Camel-K operator detects the new integration routes and assemble the application
+* **Step G** Camel-K operator detects the new integration routes and assemble the application
 
 * **Step 7** The application with all the microservices are running in the managed environment.
 
