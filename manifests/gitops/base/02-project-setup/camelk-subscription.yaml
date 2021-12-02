@@ -1,3 +1,12 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: camelk
+  namespace: camelk-dev
+spec:
+  targetNamespaces:
+    - camelk-dev
+---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
