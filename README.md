@@ -1,3 +1,7 @@
+![application](images/app.png)
+
+
+![process](images/processflow.png)
 # camel-demo
 Pré-requis
 l'Operator Camel-K doit être déployé dans le namespace ou cluster utilisé.
