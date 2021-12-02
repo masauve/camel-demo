@@ -1,4 +1,24 @@
+For installation instruction, please click here.
+
+This is a demo of a development workflow using Camel-K for a simple integration application.
+
+The application is composed of 3 microservices:
+* Transaction Service
+* Credit Service
+* Debit Service
+
+The Transaction services uses several Enterprise Integration Patterns (EIP) to interact with the two backend services (Credit and Debit) such as content-based router (CBR), parallel processor and aggregator.
+
+From a high level, the application logical architecture looks like:
 ![application](images/app.png)
+
+The network flow and security at the ingress point and between microservices is controlled by OpenShift Service Mesh (Istio).
+
+This demo, sets up the following process:
+
+
+
+
 
 
 ![process](images/processflow.png)
