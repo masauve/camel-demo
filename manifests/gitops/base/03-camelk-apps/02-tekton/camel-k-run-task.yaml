@@ -1,20 +1,29 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
+  labels:
+    app.kubernetes.io/instance: camelk-dev
   name: camel-k-run-integration
+  namespace: camelk-dev
 spec:
-  resources:
-    - name: repository
-      type: git
   params:
     - name: traits
       type: array
-    - name: file
+    - description: The integration file to run
+      name: file
       type: string
-      description: The integration file to run
+  resources:
+    inputs:
+      - name: repository
+        type: git
   steps:
-    - name: run-integration
-      image: apache/camel-k:1.7.0
+    - args:
+        - run
+        - '$(params.traits[*])'
+        - $(params.file)
+      command:
+        - kamel
+      image: 'apache/camel-k:1.7.0'
+      name: run-integration
+      resources: {}
       workingDir: /workspace/repository
-      command: [kamel]
-      args: ["run", "$(params.traits[*])", "$(params.file)"]
