@@ -8,6 +8,6 @@ spec:
     matchLabels:
       app: istio-ingressgateway
   jwtRules:
-  - issuer: https://keycloak-sso.apps.rhcasalab.sandbox1385.opentlc.com/auth/realms/user-applications
-    jwksUri: https://keycloak-sso.apps.rhcasalab.sandbox1385.opentlc.com/auth/realms/user-applications/protocol/openid-connect/certs
+  - issuer: https://keycloak-sso.apps.sno.myocp.net/auth/realms/apps
+    jwksUri: https://keycloak-sso.apps.sno.myocp.net/auth/realms/apps/protocol/openid-connect/certs
     forwardOriginalToken: true
