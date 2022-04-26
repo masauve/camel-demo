@@ -10,7 +10,7 @@ spec:
   rules:
   - to:
     - operation:
-        methods: ["GET"]
+        methods: ["GET", "POST", "PUT"]
         paths: ["/debit"]
     when:
     - key: request.auth.claims[realm_access][roles]
