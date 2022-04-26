@@ -5,3 +5,4 @@ resources:
   - ossm.yaml
   - auth-req.yaml
   - auth-policy.yaml
+  - camelk-gateway.yaml
