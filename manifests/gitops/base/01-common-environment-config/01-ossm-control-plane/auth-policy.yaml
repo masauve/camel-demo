@@ -7,7 +7,7 @@ spec:
   action: ALLOW
   selector:
     matchLabels:
-      app: camelk-gateway
+      app: istio-ingressgateway
   rules:
   - from:
     - source:
