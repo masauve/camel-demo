@@ -6,7 +6,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - camelk-gateway
+  - camelk-gateway.istio-system.svc.cluster.local
   http:
   - match:
     - uri:
