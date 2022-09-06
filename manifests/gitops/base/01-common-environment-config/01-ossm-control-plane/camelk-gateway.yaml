@@ -12,4 +12,4 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "camelk.apps.sno.myocp.net"
+    - "camelk.apps.home.myocp.net"
