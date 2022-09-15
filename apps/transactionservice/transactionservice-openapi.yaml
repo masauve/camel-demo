@@ -9,7 +9,7 @@ paths:
             responses:
                 '200': {}
             operationId: readtransaction
-            summary: Read and Write user transaction
+            summary: Read and Write user transaction            
         post:
             requestBody:
                 content:
@@ -22,6 +22,12 @@ paths:
                     content:
                         application/json: {}
             operationId: writetransaction
+    /account:
+        get:
+            responses:
+                '200': {}
+            operationId: readaccount
+            summary: Get a particular account        
 components:
     schemas:
         client:

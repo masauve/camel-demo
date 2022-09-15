@@ -5,7 +5,6 @@ kamel run --dev --profile=openshift --open-api=transactionservice-openapi.yaml -
 kamel run --profile=openshift --open-api=transactionservice-openapi.yaml -t knative.enabled=false -t route.enabled=true -t istio.enabled=true transactionservice.java
 */
 import org.apache.camel.Exchange;
-import org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy;
 import org.apache.camel.AggregationStrategy;
 
 public class transactionservice extends org.apache.camel.builder.RouteBuilder {
@@ -46,8 +45,6 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
         .end()
         .convertBodyTo(String.class);
 
-
-
         from("direct:debitTransaction")
             .log("calling the debit service")
             .log("BODY: ${body}")
@@ -60,6 +57,10 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
             .marshal().json()
             .to("http:creditservice:80/credit?httpMethod=POST");
 
+        from("direct:readaccount")
+            .log("Read the account Id")
+            .setBody().simple("Success!").marshal().json();   
+  
  }
 
  private class MyAggregationStrategy implements AggregationStrategy {
