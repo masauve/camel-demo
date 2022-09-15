@@ -22,11 +22,11 @@ paths:
                     content:
                         application/json: {}
             operationId: writetransaction
-    /account:
+    /transaction/accounts/{accountId}:
         get:
             responses:
                 '200': {}
-            operationId: readaccount
+            operationId: getaccount
             summary: Get a particular account        
 components:
     schemas:

@@ -57,9 +57,9 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
             .marshal().json()
             .to("http:creditservice:80/credit?httpMethod=POST");
 
-        from("direct:readaccount")
-            .log("Read the account Id")
-            .setBody().simple("Success!").marshal().json();   
+        from("direct:getaccount")
+            .log("Get the account Id")
+            .setBody().simple("Success! - ${header.accoutid}").marshal().json();   
   
  }
 
