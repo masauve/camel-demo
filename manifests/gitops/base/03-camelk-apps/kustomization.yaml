@@ -4,5 +4,6 @@ kind: Kustomization
 bases:
   - 01-database/creditdb
   - 01-database/debitdb
+  - 01-database/accountdb
   - 02-tekton
   - 03-ossm
