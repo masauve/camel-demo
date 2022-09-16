@@ -63,7 +63,7 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
         from("direct:createAccount")
             .unmarshal().json()
             .log("BODY: ${body}")
-            .setBody().simple("insert into transaction (CLIENT_ID, TYPE, LOCATION, AMOUNT) values ('${body[clientId]}', '${body[type]}','${body[location]}','${body[amount]}' );")
+            .setBody().simple("insert into account (CLIENT_ID, TYPE, LOCATION, AMOUNT) values ('${body[clientId]}', '${body[type]}','${body[location]}','${body[amount]}' );")
             .to("jdbc:camel")
             .setBody().simple("Success!").marshal().json();
 
