@@ -8,9 +8,10 @@ public class accountservice extends org.apache.camel.builder.RouteBuilder {
 
   @Override
   public void configure() throws Exception {
-        from("direct:getaccount")
-            .log("Get the account Id for ${header.accountId}")
-            .setBody().simple("Success! - ${header.accountId}").marshal().json();   
+        from("direct:getAnAccount")
+            .log("Get the account id for:  ${header.accountId}")
+            .setBody().simple("select * from transaction where accountId = ${header.accountId}")
+            .to("jdbc:camel").marshal().json();
   
         from("direct:createAccount")
             .unmarshal().json()
