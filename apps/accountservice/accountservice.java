@@ -3,8 +3,6 @@ kamel run --dev --profile=openshift --open-api=accountservice-openapi.yaml --con
 
 kamel run --profile=openshift --open-api=accountservice-openapi.yaml --config secret:my-acccount-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true -t istio.enabled=true transactionservice.java
 */
-import org.apache.camel.Exchange;
-import org.apache.camel.AggregationStrategy;
 
 public class accountservice extends org.apache.camel.builder.RouteBuilder {
 
@@ -17,7 +15,7 @@ public class accountservice extends org.apache.camel.builder.RouteBuilder {
         from("direct:createAccount")
             .unmarshal().json()
             .log("BODY: ${body}")
-            .setBody().simple("insert into account (CLIENT_ID, TYPE, LOCATION, AMOUNT) values ('${body[clientId]}', '${body[type]}','${body[location]}','${body[amount]}' );")
+            .setBody().simple("insert into account (ACCOUNTID, ACCOUNT_TYPE, DISPLAYNAME, ACCOUNT_STATUS, ACCOUNT_DESCRIPTION, NICKNAME, CURRENCYCODE, INTERESTRATE, LOANTERM, TOTALNUMBEROFPAYMENTS, CURRENTBALANCE, AVAILABLEBALANCE  ) values ('${body[accountId]}', '${body[accountType]}','${body[displayName]}','${body[status]}', '${body[]}','${body[description]}' , '${body[nickname]}', '${body[currencyCode]}','${body[currencyCode]}' ,'${body[interestRate]}' , '${body[loanTerm]}', '${body[totalNumberOfPayments]}', '${body[currentBalance]}','${body[availableBalance]}');")
             .to("jdbc:camel")
             .setBody().simple("Success!").marshal().json();
  }
