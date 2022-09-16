@@ -11,7 +11,7 @@ public class accountservice extends org.apache.camel.builder.RouteBuilder {
         from("direct:getAnAccount")
             .log("Get the account id for:  ${header.accountId}")
             .setBody().simple("select ACCOUNTID, ACCOUNT_TYPE, DISPLAYNAME, ACCOUNT_STATUS, ACCOUNT_DESCRIPTION, NICKNAME, CURRENCYCODE, INTERESTRATE, LOANTERM, TOTALNUMBEROFPAYMENTS, CURRENTBALANCE, AVAILABLEBALANCE from account where accountId = :?accountId")
-            .to("jdbc:camel?userHeadersAsParameters=true").marshal().json();
+            .to("jdbc:camel?useHeadersAsParameters=true").marshal().json();
   
         from("direct:createAccount")
             .unmarshal().json()
