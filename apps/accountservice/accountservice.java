@@ -16,8 +16,13 @@ public class accountservice extends org.apache.camel.builder.RouteBuilder {
         from("direct:createAccount")
             .unmarshal().json()
             .log("BODY: ${body}")
-            .setBody().simple("insert into account (ACCOUNTID, ACCOUNT_TYPE, DISPLAYNAME, ACCOUNT_STATUS, ACCOUNT_DESCRIPTION, NICKNAME, CURRENCYCODE, INTERESTRATE, LOANTERM, TOTALNUMBEROFPAYMENTS, CURRENTBALANCE, AVAILABLEBALANCE  ) values ('${body[accountId]}', '${body[accountType]}','${body[displayName]}','${body[status]}','${body[description]}' , '${body[nickname]}', '${body.currencyInfo.currencyCode}','${body[interestRate]}', '${body[loanTerm]}', '${body[totalNumberOfPayments]}', '${body[currentBalance]}','${body[availableBalance]}');")
+            .setBody().simple("insert into account (ACCOUNTID, ACCOUNT_TYPE, DISPLAYNAME, ACCOUNT_STATUS, ACCOUNT_DESCRIPTION, NICKNAME, CURRENCYCODE, INTERESTRATE, LOANTERM, TOTALNUMBEROFPAYMENTS, CURRENTBALANCE, AVAILABLEBALANCE  ) values ('${body[accountId]}', '${body[accountType]}','${body[displayName]}','${body[status]}','${body[description]}' , '${body[nickname]}', '${body[currencyInfo].currencyCode}','${body[interestRate]}', '${body[loanTerm]}', '${body[totalNumberOfPayments]}', '${body[currentBalance]}','${body[availableBalance]}');")
             .to("jdbc:camel")
             .setBody().simple("Success!").marshal().json();
+
+        from("direct:getAccountTransaction")
+            .log("Get the account id for:  ${header.accountId}")
+            .setBody().simple("select ACCOUNTID, ACCOUNT_TYPE, DISPLAYNAME, ACCOUNT_STATUS, ACCOUNT_DESCRIPTION, NICKNAME, CURRENCYCODE, INTERESTRATE, LOANTERM, TOTALNUMBEROFPAYMENTS, CURRENTBALANCE, AVAILABLEBALANCE from account where accountId = :?accountId")
+            .to("jdbc:camel?useHeadersAsParameters=true").marshal().json();
  }
 }
