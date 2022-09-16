@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: transactionservice-pipeline
+  name: accountservice-pipeline
 spec:
   resources:
     - name: source-repo
@@ -18,7 +18,7 @@ spec:
         - name: traits
           value:
             - "--profile=openshift"
-            - "--open-api=apps/transactionservice/transactionservice-openapi.yaml"
+            - "--open-api=apps/accountservice/accountservice-openapi.yaml"
             - "--config"
             - "secret:my-account-datasource"
             - "--build-property"
@@ -34,4 +34,4 @@ spec:
             - "--trait" 
             - "jolokia.enabled=true"
         - name: file
-          value: "apps/transactionservice/transactionservice.java"
+          value: "apps/accountservice/accountservice.java"
