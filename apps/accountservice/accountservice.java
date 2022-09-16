@@ -10,7 +10,7 @@ public class accountservice extends org.apache.camel.builder.RouteBuilder {
   public void configure() throws Exception {
         from("direct:getAnAccount")
             .log("Get the account id for:  ${header.accountId}")
-            .setBody().simple("select * from account where accountId = ${header.accountId}")
+            .setBody().simple("select ACCOUNTID, ACCOUNT_TYPE, DISPLAYNAME, ACCOUNT_STATUS, ACCOUNT_DESCRIPTION, NICKNAME, CURRENCYCODE, INTERESTRATE, LOANTERM, TOTALNUMBEROFPAYMENTS, CURRENTBALANCE, AVAILABLEBALANCE from account where accountId == ${header.accountId}")
             .to("jdbc:camel").marshal().json();
   
         from("direct:createAccount")
