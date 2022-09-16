@@ -3,7 +3,7 @@ kamel run --dev --profile=openshift --open-api=accountservice-openapi.yaml --con
 
 kamel run --profile=openshift --open-api=accountservice-openapi.yaml --config secret:my-acccount-datasource --build-property quarkus.datasource.camel.db-kind=postgresql  -d mvn:io.quarkus:quarkus-jdbc-postgresql -t knative.enabled=false -t route.enabled=true -t istio.enabled=true transactionservice.java
 */
-
+    
 public class accountservice extends org.apache.camel.builder.RouteBuilder {
 
   @Override
