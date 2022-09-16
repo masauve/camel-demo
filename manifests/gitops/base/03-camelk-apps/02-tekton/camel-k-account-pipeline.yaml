@@ -19,6 +19,12 @@ spec:
           value:
             - "--profile=openshift"
             - "--open-api=apps/transactionservice/transactionservice-openapi.yaml"
+            - "--config"
+            - "secret:my-account-datasource"
+            - "--build-property"
+            - "quarkus.datasource.camel.db-kind=postgresql"
+            - "-d"
+            - "mvn:io.quarkus:quarkus-jdbc-postgresql"
             - "--trait"
             - "knative.enabled=false"
             - "--trait" 
