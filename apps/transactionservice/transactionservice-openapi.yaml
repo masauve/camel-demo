@@ -22,12 +22,33 @@ paths:
                     content:
                         application/json: {}
             operationId: writetransaction
+    /transaction/accounts:
+        post:
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Client'
+                        examples:
+                            client:
+                                value:
+                                    clientId: client1
+                                    type: account
+                                    location: somewhere
+                                    amount: 4.25
+                required: true
+            responses:
+                '200':
+                    description: Account created
+            description: Create a new Account
+            operationId: createAccount
     /transaction/accounts/{accountId}:
         get:
             responses:
                 '200': {}
             operationId: getaccount
-            summary: Get a particular account        
+            summary: Get a particular account                    
 components:
     schemas:
         client:
