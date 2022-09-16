@@ -7,3 +7,4 @@ resources:
 - camel-k-transaction-pipeline.yaml
 - camel-k-debit-pipeline.yaml
 - camel-k-credit-pipeline.yaml
+- camel-k-account-pipeline.yaml
