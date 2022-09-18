@@ -13,7 +13,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/Client'
+                                    $ref: '#/components/schemas/Transaction'
                     description: List all transactions
             operationId: getall
         post:
@@ -22,7 +22,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Client'
+                            $ref: '#/components/schemas/Transaction'
                         examples:
                             client:
                                 value:
@@ -38,22 +38,31 @@ paths:
             operationId: writedb
 components:
     schemas:
-        Client:
-            title: Root Type for Client
-            description: 'Client description  '
+        Transaction:
+            title: Root of Transaction
+            description: 'transaction description  '
             type: object
             properties:
-                clientId:
+                accoutId:
                     type: string
-                type:
+                transactionId:
                     type: string
-                location:
+                transactionCategory:
+                    type: string
+                posdtedTimestamp:
+                    type: string
+                transactionDescription:
+                    type: string
+                debitCreditDemo:
                     type: string
                 amount:
                     format: double
-                    type: number
+                    type: number                    
             example:
-                clientId: client1
-                type: credit
-                location: The car coffeeshop
-                amount: 4.25
+                accoutId: 10001
+                transactionId: 20001
+                transactionCategory: CREDIT_ACCOUNT_TRANSACTION
+                posdtedTimestamp: 2022-09-06T13:15:30.751Z
+                transactionDescription: Credit deposit from XYZ
+                debitCreditDemo: Credit
+                amount: 200

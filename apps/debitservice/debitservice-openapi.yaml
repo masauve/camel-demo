@@ -13,7 +13,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/transaction'
+                                    $ref: '#/components/schemas/Transaction'
                     description: List all transactions
             operationId: getall
         post:
@@ -22,7 +22,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/transaction'
+                            $ref: '#/components/schemas/Transaction'
                         examples:
                             client:
                                 value:
@@ -38,7 +38,7 @@ paths:
             operationId: writedb
 components:
     schemas:
-        Client:
+        Transaction:
             title: Root of Transaction
             description: 'transaction description  '
             type: object

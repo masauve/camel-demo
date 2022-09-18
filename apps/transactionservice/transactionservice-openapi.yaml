@@ -15,7 +15,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/client'
+                            $ref: '#/components/schemas/Transaction'
                 required: true
             responses:
                 '200':
@@ -24,22 +24,31 @@ paths:
             operationId: writetransaction                  
 components:
     schemas:
-        client:
-            title: Root Type for client
-            description: client transaction
+        Transaction:
+            title: Root of Transaction
+            description: 'transaction description  '
             type: object
             properties:
-                clientId:
+                accoutId:
                     type: string
-                type:
+                transactionId:
                     type: string
-                location:
+                transactionCategory:
+                    type: string
+                posdtedTimestamp:
+                    type: string
+                transactionDescription:
+                    type: string
+                debitCreditDemo:
                     type: string
                 amount:
                     format: double
-                    type: number
+                    type: number                    
             example:
-                clientId: client3
-                type: debit
-                location: The cat coffeeshop
-                amount: 4.25
+                accoutId: 10001
+                transactionId: 20001
+                transactionCategory: DEPOSIT_ACCOUNT_TRANSACTION
+                posdtedTimestamp: 2022-09-05T13:15:30.751Z
+                transactionDescription: Direct deposit from XYZ
+                debitCreditDemo: Deposit
+                amount: 1200
