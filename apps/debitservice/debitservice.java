@@ -13,13 +13,13 @@ public class debitservice extends org.apache.camel.builder.RouteBuilder {
         from("direct:writedb")
             .unmarshal().json()
             .log("BODY: ${body}")
-            .setBody().simple("insert into transaction (CLIENT_ID, TYPE, LOCATION, AMOUNT) values ('${body[clientId]}', '${body[type]}','${body[location]}','${body[amount]}' );")
+            .setBody().simple("insert into transaction (ACCOUNTID, TRANSACTIONID, TRANSACTIONCATEGORY, POSTEDTIMESTAMP, TRANSACTIONDESCRIPTION, DEBITCREDITMEMO, AMOUNT) values ('${body[accoutId]}', '${body[transactionId]}','${body[transactionCategory]}','${body[posdtedTimestamp]}',,'${body[transactionDescription]}','${body[debitCreditDemo]}', '${body[amount]}' );")
             .to("jdbc:camel")
             .setBody().simple("Success!").marshal().json();
 
         from("direct:getall")
         .log("Get all transactioins")
-        .setBody().simple("select CLIENT_ID, TYPE, LOCATION, AMOUNT from transaction")
+        .setBody().simple("select * from transaction")
         .to("jdbc:camel").marshal().json();
  }
 }

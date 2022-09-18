@@ -13,7 +13,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/Client'
+                                    $ref: '#/components/schemas/transaction'
                     description: List all transactions
             operationId: getall
         post:
@@ -22,7 +22,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Client'
+                            $ref: '#/components/schemas/transaction'
                         examples:
                             client:
                                 value:
@@ -33,27 +33,36 @@ paths:
                 required: true
             responses:
                 '200':
-                    description: Credit received
+                    description: Deposit received
             description: Insert a debit request in the debit store
             operationId: writedb
 components:
     schemas:
         Client:
-            title: Root Type for Client
-            description: 'Client description  '
+            title: Root of Transaction
+            description: 'transaction description  '
             type: object
             properties:
-                clientId:
+                accoutId:
                     type: string
-                type:
+                transactionId:
                     type: string
-                location:
+                transactionCategory:
+                    type: string
+                posdtedTimestamp:
+                    type: string
+                transactionDescription:
+                    type: string
+                debitCreditDemo:
                     type: string
                 amount:
                     format: double
-                    type: number
+                    type: number                    
             example:
-                clientId: client1
-                type: debit
-                location: The car coffeeshop
-                amount: 4.25
+                accoutId: 10001
+                transactionId: 20001
+                transactionCategory: DEPOSIT_ACCOUNT_TRANSACTION
+                posdtedTimestamp: 2022-09-05T13:15:30.751Z
+                transactionDescription: Direct deposit from XYZ
+                debitCreditDemo: Deposit
+                amount: 1200
