@@ -64,5 +64,5 @@ components:
                 transactionCategory: CREDIT_ACCOUNT_TRANSACTION
                 posdtedTimestamp: 2022-09-06T13:15:30.751Z
                 transactionDescription: Credit deposit from XYZ
-                debitCreditDemo: Credit
+                debitCreditDemo: CREDIT
                 amount: 200

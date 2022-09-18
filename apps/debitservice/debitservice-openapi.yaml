@@ -64,5 +64,5 @@ components:
                 transactionCategory: DEPOSIT_ACCOUNT_TRANSACTION
                 posdtedTimestamp: 2022-09-05T13:15:30.751Z
                 transactionDescription: Direct deposit from XYZ
-                debitCreditDemo: Deposit
+                debitCreditDemo: DEPOSIT
                 amount: 1200

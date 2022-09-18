@@ -17,12 +17,12 @@ public class transactionservice extends org.apache.camel.builder.RouteBuilder {
         .unmarshal().json()
         .log("request received: ${body}")
         .choice()
-            .when().simple("${body[type]} == 'debit'")
+            .when().simple("${body[debitCreditMemo]} == 'DEBIT'")
                 .to("direct:debitTransaction")
-            .when().simple("${body[type]} == 'credit'")
+            .when().simple("${body[debitCreditMemo]} == 'CREDIT'")
                 .to("direct:creditTransaction")
             .otherwise()
-                .log( "invalid path : ${body[type]}" )
+                .log( "invalid path : ${body[debitCreditMemo]}" )
         .end();
 
         from("direct:readtransaction")
