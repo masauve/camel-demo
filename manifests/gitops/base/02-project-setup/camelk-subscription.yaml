@@ -13,9 +13,9 @@ metadata:
   name: camel-k
   namespace: camelk-dev
 spec:
-  channel: stable-1.7
+  channel: stable-1.11
   installPlanApproval: Automatic
   name: camel-k
   source: community-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: camel-k-operator.v1.7.0
+  startingCSV: camel-k-operator.v1.11.0
