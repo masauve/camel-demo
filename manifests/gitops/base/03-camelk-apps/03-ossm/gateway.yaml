@@ -15,6 +15,6 @@ spec:
       uri: "/"
     route:
     - destination:
-        host: accountservice
+        host: transactionservice
         port:
           number: 80
